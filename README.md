@@ -22,11 +22,13 @@ Islands are little bits of interactivity on a webpage, throughout the applicatio
 Each page is defined as a route, much like other frameworks. In this case there are two routes, / and /add the first is the main page, which contains all the stuff you need, specifically a list of all the plants and their information. The second /add (which is a page that allows the user to create a new plant entry) route exists because I don’t have time to properly architect the form as a floating box. It being a separate page serves two simple purposes, 1: it means I don’t need to live rerender the main page on the client, and 2: it is far easier to architect the form as a link to a separate page than to work it into the document layout.  
 \_\_database  
 The database is designed separately because there is no native database for fresh (an argument could be made for deno kv). The database stored each plant entry in a .def file, which looks like this:  
+```js
 name: Basil  
 id: d60dae04-7cab-469a-8298-d740bf4affde  
 img: basil.png  
 days: smt_tfs  
 description: it a plant  
+```
 This file can be requested by filename from the database, the image is retrieved from the static files directory because that is the only place fresh can see them, otherwise they would be stored with the def files
 
 ## \_design language.
@@ -41,8 +43,8 @@ The visual design of the app follows the noal design scheme, which entails these
 
 ## \_some of the code (just for fun :) )
 
-From the code(tsx) that constructs the watering indicator: 
-tsx
+### From the code(tsx) that constructs the watering indicator: 
+```tsx
 interface TimesProps {
   days: string,
 }
@@ -64,9 +66,9 @@ export function Times(props: TimesProps) {
         </div>  
     );  
 }
- 
-	From the code(css) that styles the button on the add plant form:  
-css
+```
+### From the code(css) that styles the button on the add plant form:  
+```css
 button {  
     width: 20%;
     font-family: inherit;
@@ -84,7 +86,7 @@ button:hover {
     background-color: var(--foreground_active);
     transition: transform 0.25s;
 }
-
+```
 
 ## \_conclusion
 
