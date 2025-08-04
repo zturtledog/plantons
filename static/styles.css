@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@100..900&display=swap');
 @font-face {
     font-family: 'icons';
     src: url('icons.ttf') format('truetype');
@@ -7,10 +8,14 @@
 * {
     padding: 0px;
     margin: 0px;
+    font-family: "Inconsolata", sans-serif;
+}
+
+h1, h2, h3 {
+    font-family: "Outfit", sans-serif;
 }
 
 .light {
-    font-family: "Outfit", sans-serif;
     font-weight: 400;
 
     background-color: var(--background);
@@ -22,11 +27,13 @@
 
     --background:#f8f8ff;
     --midground:#e8e8ff;
-    --midground_active:#f1f1ff;
+    --midground_active:#f1f1ff; 
     --foreground:#75eb55;
     --foreground_active:#bafd6e;
         
-    --ui_a:#4bc898;
+    /* --ui_a:#4bc898; */
+    /* --ui_a:#dce745; */
+    --ui_a:#4591e7;
     --ui_b:#fd6e85;
     --ui_c:#fdb14d;
         
@@ -43,21 +50,21 @@
 }
 
 .dark {
-    font-family: "Outfit", sans-serif;
     font-weight: 400;
 
     background-color: var(--background);
 
     color: var(--text);
 
-    --highlight: #a650dc;
+    /* --highlight: #a650dc; */
+    --highlight: #4ba875;
     --highlight_text: #f0e8fe;
 
     --background:#0d0917;
     --midground:#10102b;
     --midground_active:#161636;
     --foreground:#1d2046;
-    --foreground_active:#5e1f69;
+    /* --foreground_active:#5e1f69; */
     --foreground_active:#1f6938;
         
     --ui_a:#4bc898;
@@ -217,6 +224,7 @@
     background: none;
     font-size: large;
     font-weight: 700;
+    font-family: "Outfit", sans-serif;
 }
 
 .card > img {
@@ -264,6 +272,8 @@
     align-items: end;
     
     grid-area: 1 / 1;
+
+    font-family: "Outfit", sans-serif;
 }
 
 .image_controls > .image_controls_holder > div {
@@ -313,6 +323,8 @@
     width: min-content;
     height: min-content;
     background-color: var(--midground);
+    font-weight: bold;
+    font-family: "Outfit" sans-serif;
 }
 .day_active {
     aspect-ratio: 1;
@@ -418,6 +430,7 @@ input[type="file"]::file-selector-button {
     border-radius: 2px;
     border-style: none;
     transition: 0.25s;
+    color: inherit;
 }
 input[type="file"]::file-selector-button:hover {
     background-color: var(--foreground);
