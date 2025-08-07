@@ -12,9 +12,10 @@ export async function read_def(path: string) : Promise<Map<string,string[]>> {
     const map = new Map();
     for (const line of (await Deno.readTextFile("./db/"+path)).replaceAll("\r","").split("\n")) {
         if (line.includes(":")) {
-            const kv = line.split(":",2)
-            const k = kv[0].trim()
-            const v = kv[1].trim()
+            // const kv = line.split(":",2)
+            const kv = line.indexOf(":")
+            const k = line.substring(0, kv).trim()
+            const v = line.substring(kv).trim()
             if (map.has(k)) {
                 const values = map.get(k)
                 values.push(v)

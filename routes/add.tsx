@@ -8,22 +8,37 @@ export const handler: Handlers = {
     return await ctx.render();
   },
   async POST(req, _) {
-    const form = await req.formData();
-    const name = form.get("name")?.toString();
-    const days = form.get("days")?.toString();
-    const description = form.get("description")?.toString();
+    const form = await req.json();
+    console.log(form)
+    // const name = form."name"?.toString();
+    // const days = form.get("days")?.toString();
+    // const description = form.get("description")?.toString();
     let temp = ""
-
-    if (description != undefined) {    
-        temp+="name:"+name+"\n";
-        temp+="days:"+days+"\n";
-        temp+="description:"+(description.replaceAll("\r","").replaceAll("\n","\\n"))+"\n";
-        temp+="id:"+uuidv4()+"\n";
+    const uuid = uuidv4()
+    if (form.desc != undefined && form.name != undefined && form.days != undefined) {    
+        temp+="name:"+form.name+"\n";
+        temp+="days:"+form.days+"\n";
+        temp+="description:"+(form.desc
+            .replaceAll("\r","")
+            .replaceAll("\n","\\n")
+            // .replaceAll("&", "&amp;")
+            // .replaceAll("<", "&lt;")
+            // .replaceAll(">", "&gt;")
+            // .replaceAll('"', "&quot;")
+            // .replaceAll("'", "&#39;")
+            // .replaceAll(":", "&#58;")
+        )+"\n";
+        temp+="id:"+uuid+"\n";
     }
+    if (form.fileContents != undefined) {
+        Deno.writeFile("./static/user/"+uuid+"."+form.fname, dataURLtoFile(form.fileContents))
+        temp+="img:"+uuid+"."+form.fname+"\n"
+    }
+    Deno.writeTextFile("./db/"+uuid+".def", temp)
 
-    console.log(form.get("file"))
+    // console.log(form.get("file"))
 
-    console.log(temp)
+    // console.log(temp)
 
     // Redirect user to main page (so we don't have to rerender).
     const headers = new Headers();
@@ -37,9 +52,9 @@ export const handler: Handlers = {
 
 // https://stackoverflow.com/a/2117523
 function uuidv4() {
-  return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+  return "P"+("10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
     (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
-  );
+  ).replaceAll("-", "_"));
 }
 
 export default function Greet(_props: PageProps) {
@@ -51,4 +66,16 @@ export default function Greet(_props: PageProps) {
         <AddForm />
     </TopPortal>
   </div>)
+}
+
+function dataURLtoFile(dataurl: URL) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[arr.length - 1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return u8arr
 }

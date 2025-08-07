@@ -66,12 +66,12 @@ export default function Home() {
 
 function frez(inp: string) {
     const assembled = []
-    
+
     for (const line of inp.split("\\n")) {
         if (line.startsWith("##")) assembled.push((<h2>{line.slice(2).trim()}</h2>)) 
-        else
+            else
         if (line.startsWith("#")) assembled.push((<h1>{line.slice(1).trim()}</h1>))
-        else assembled.push(line)
+            else assembled.push(line)
     }
 
     return (assembled)
